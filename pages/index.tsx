@@ -1,7 +1,10 @@
 import Card from "@/components/Card";
 import MainLayout from "@/components/MainLayout";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter()
+
   const timesheetData = [
     { week: 1, date: '1 – 5 January, 2024', status: 'COMPLETED' },
     { week: 2, date: '8 – 12 January, 2024', status: 'COMPLETED' },
@@ -59,6 +62,7 @@ export default function Home() {
                     <td className="px-4 py-3">
                       <button
                         className="font-normal text-blue-600 text-base leading-[125%] font-inter hover:cursor-pointer hover:text-blue-400"
+                        onClick={() => router.push('/timesheets/week')}
                       >
                         {row.status === "COMPLETED"
                           ? "View"

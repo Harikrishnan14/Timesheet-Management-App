@@ -83,7 +83,7 @@ const Login = () => {
                             onClick={handleLogin}
                             disabled={loading || !email || !password || !isValidEmail}
                         >
-                            Sign in
+                            {loading? "Loading..." : "Sign in"}
                         </button>
                     </div>
                     <p className="text-gray-300 font-inter font-normal text-center text-[14px] leading-[150%] tracking-[0%]">© 2024 tentwenty</p>

@@ -1,0 +1,240 @@
+[
+    {
+        "week": 1,
+        "date": "1 – 5 January, 2024",
+        "status": "INCOMPLETE",
+        "weeklyData": [
+            {
+                "day": "Jan 1",
+                "tasks": [
+                    {
+                        "title": "Homepage Development",
+                        "hours": "4 hrs",
+                        "project": "Project A"
+                    },
+                    {
+                        "title": "UI Review",
+                        "hours": "2 hrs",
+                        "project": "Project A"
+                    }
+                ]
+            },
+            {
+                "day": "Jan 2",
+                "tasks": [
+                    {
+                        "title": "Bug Fixes",
+                        "hours": "3 hrs",
+                        "project": "Project A"
+                    },
+                    {
+                        "title": "Design Sync",
+                        "hours": "2 hrs",
+                        "project": "Project B"
+                    }
+                ]
+            },
+            {
+                "day": "Jan 3",
+                "tasks": []
+            },
+            {
+                "day": "Jan 4",
+                "tasks": [
+                    {
+                        "title": "Code Review",
+                        "hours": "2 hrs",
+                        "project": "Project B"
+                    },
+                    {
+                        "title": "Testing",
+                        "hours": "3 hrs",
+                        "project": "Project C"
+                    }
+                ]
+            },
+            {
+                "day": "Jan 5",
+                "tasks": []
+            }
+        ]
+    },
+    {
+        "week": 2,
+        "date": "8 – 12 January, 2024",
+        "status": "INCOMPLETE",
+        "weeklyData": [
+            {
+                "day": "Jan 8",
+                "tasks": [
+                    {
+                        "title": "Planning",
+                        "hours": "2 hrs",
+                        "project": "Project D"
+                    },
+                    {
+                        "title": "Documentation",
+                        "hours": "3 hrs",
+                        "project": "Project D"
+                    }
+                ]
+            },
+            {
+                "day": "Jan 9",
+                "tasks": []
+            },
+            {
+                "day": "Jan 10",
+                "tasks": [
+                    {
+                        "title": "UI Review",
+                        "hours": "2 hrs",
+                        "project": "Project A"
+                    },
+                    {
+                        "title": "Fix Merge Conflicts",
+                        "hours": "2 hrs",
+                        "project": "Project A"
+                    }
+                ]
+            },
+            {
+                "day": "Jan 11",
+                "tasks": [
+                    {
+                        "title": "Team Meeting",
+                        "hours": "1 hr",
+                        "project": "Project B"
+                    }
+                ]
+            },
+            {
+                "day": "Jan 12",
+                "tasks": []
+            }
+        ]
+    },
+    {
+        "week": 3,
+        "date": "15 – 19 January, 2024",
+        "status": "INCOMPLETE",
+        "weeklyData": [
+            {
+                "day": "Jan 15",
+                "tasks": [
+                    {
+                        "title": "Sprint Planning",
+                        "hours": "3 hrs",
+                        "project": "Project E"
+                    }
+                ]
+            },
+            {
+                "day": "Jan 16",
+                "tasks": []
+            },
+            {
+                "day": "Jan 17",
+                "tasks": [
+                    {
+                        "title": "DevOps Setup",
+                        "hours": "4 hrs",
+                        "project": "Project F"
+                    }
+                ]
+            },
+            {
+                "day": "Jan 18",
+                "tasks": []
+            },
+            {
+                "day": "Jan 19",
+                "tasks": []
+            }
+        ]
+    },
+    {
+        "week": 4,
+        "date": "22 – 26 January, 2024",
+        "status": "MISSING",
+        "weeklyData": [
+            {
+                "day": "Jan 22",
+                "tasks": []
+            },
+            {
+                "day": "Jan 23",
+                "tasks": []
+            },
+            {
+                "day": "Jan 24",
+                "tasks": []
+            },
+            {
+                "day": "Jan 25",
+                "tasks": []
+            },
+            {
+                "day": "Jan 26",
+                "tasks": []
+            }
+        ]
+    },
+    {
+        "week": 5,
+        "date": "29 January – 2 February, 2024",
+        "status": "COMPLETED",
+        "weeklyData": [
+            {
+                "day": "Jan 29",
+                "tasks": [
+                    {
+                        "title": "Development",
+                        "hours": "8 hrs",
+                        "project": "Project X"
+                    }
+                ]
+            },
+            {
+                "day": "Jan 30",
+                "tasks": [
+                    {
+                        "title": "Development",
+                        "hours": "8 hrs",
+                        "project": "Project X"
+                    }
+                ]
+            },
+            {
+                "day": "Jan 31",
+                "tasks": [
+                    {
+                        "title": "Development",
+                        "hours": "8 hrs",
+                        "project": "Project X"
+                    }
+                ]
+            },
+            {
+                "day": "Feb 1",
+                "tasks": [
+                    {
+                        "title": "Development",
+                        "hours": "8 hrs",
+                        "project": "Project X"
+                    }
+                ]
+            },
+            {
+                "day": "Feb 2",
+                "tasks": [
+                    {
+                        "title": "Development",
+                        "hours": "8 hrs",
+                        "project": "Project X"
+                    }
+                ]
+            }
+        ]
+    }
+]
