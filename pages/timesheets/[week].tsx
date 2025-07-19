@@ -1,13 +1,8 @@
 import Card from '@/components/Card'
 import MainLayout from '@/components/MainLayout'
-import { TimesheetWeek } from '@/interfaces/next-auth'
+import { ProgressbarProps, TimesheetWeek } from '@/interfaces/next-auth'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
-
-interface ProgressbarProps {
-    totalHours: number;
-    percentage: number;
-}
 
 const Week = () => {
     const router = useRouter()

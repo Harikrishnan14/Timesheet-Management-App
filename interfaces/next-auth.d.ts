@@ -37,3 +37,8 @@ export interface TimesheetWeek {
     status: TimesheetStatus;
     weeklyData: DayData[];
 }
+
+interface ProgressbarProps {
+    totalHours: number;
+    percentage: number;
+}
