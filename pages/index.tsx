@@ -88,8 +88,7 @@ export default function Home({ timesheetData }: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const baseUrl = process.env.NEXTAUTH_URL || `http://${context.req.headers.host}`;
-  const response = await fetch(`${baseUrl}/api/timesheets/getallweeks`);
+  const response = await fetch(`https://timesheet-management-app-three.vercel.app/api/timesheets/getallweeks`);
   const json = await response.json();
   return {
     props: {
