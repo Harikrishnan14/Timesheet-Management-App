@@ -4,27 +4,12 @@ import { TimesheetWeek } from "@/interfaces/next-auth";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export default function Home() {
-  const [timesheetData, setTimeSheetData] = useState<TimesheetWeek[] | []>([])
-  const [loading, setLoading] = useState(false)
+interface Props {
+  timesheetData: TimesheetWeek[];
+}
+
+export default function Home({ timesheetData }: Props) {
   const router = useRouter()
-
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch('/api/timesheets/getallweeks');
-      const json = await response.json();
-      setTimeSheetData(json);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchData()
-  }, [])
 
   const getStatusStyles = (status: string) => {
     switch (status) {
@@ -58,42 +43,34 @@ export default function Home() {
               </thead>
 
               <tbody>
-                {loading ? (
+                {timesheetData.map((row, index) => (
                   <tr
+                    key={index.toString()}
                     className="bg-white text-[#111827] text-[14px] font-normal leading-[21px] border border-[#E5E7EB] rounded-[8px] shadow-sm"
                   >
-                    <td colSpan={4} className="p-5 text-center font-normal text-[14px] leading-[150%] text-gray-900">Loading...</td>
+                    <td className="p-5 bg-gray-50 w-[107px] font-normal text-[14px] leading-[150%] text-gray-900">{row.week}</td>
+                    <td className="p-5 font-inter font-normal text-[14px] leading-[150%] text-gray-500">{row.date}</td>
+                    <td className="p-5">
+                      <span
+                        className={`px-2 py-1 rounded-md text-[12px] font-medium ${getStatusStyles(row.status)}`}
+                      >
+                        {row.status}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <button
+                        className="font-normal text-blue-600 text-base leading-[125%] font-inter hover:cursor-pointer hover:text-blue-400"
+                        onClick={() => router.push(`/timesheets/${row.week}`)}
+                      >
+                        {row.status === "COMPLETED"
+                          ? "View"
+                          : row.status === "INCOMPLETE"
+                            ? "Update"
+                            : "Create"}
+                      </button>
+                    </td>
                   </tr>
-                ) : (
-                  timesheetData.map((row, index) => (
-                    <tr
-                      key={index.toString()}
-                      className="bg-white text-[#111827] text-[14px] font-normal leading-[21px] border border-[#E5E7EB] rounded-[8px] shadow-sm"
-                    >
-                      <td className="p-5 bg-gray-50 w-[107px] font-normal text-[14px] leading-[150%] text-gray-900">{row.week}</td>
-                      <td className="p-5 font-inter font-normal text-[14px] leading-[150%] text-gray-500">{row.date}</td>
-                      <td className="p-5">
-                        <span
-                          className={`px-2 py-1 rounded-md text-[12px] font-medium ${getStatusStyles(row.status)}`}
-                        >
-                          {row.status}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <button
-                          className="font-normal text-blue-600 text-base leading-[125%] font-inter hover:cursor-pointer hover:text-blue-400"
-                          onClick={() => router.push(`/timesheets/${row.week}`)}
-                        >
-                          {row.status === "COMPLETED"
-                            ? "View"
-                            : row.status === "INCOMPLETE"
-                              ? "Update"
-                              : "Create"}
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                )}
+                ))}
               </tbody>
             </table>
           </div>
@@ -108,4 +85,14 @@ export default function Home() {
       </Card>
     </MainLayout>
   );
+}
+
+export async function getServerSideProps() {
+  const response = await fetch('http://localhost:3000/api/timesheets/getallweeks');
+  const json = await response.json();
+  return {
+    props: {
+      timesheetData: json
+    }
+  };
 }
