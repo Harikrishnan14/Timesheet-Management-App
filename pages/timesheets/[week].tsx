@@ -18,8 +18,7 @@ const Week = () => {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-            const response = await fetch(`${baseUrl}/api/timesheets/${week}`);
+            const response = await fetch(`https://timesheet-management-app-three.vercel.app/api/timesheets/${week}`);
             const json = await response.json();
             setWeeklyData(json);
         } catch (error) {
