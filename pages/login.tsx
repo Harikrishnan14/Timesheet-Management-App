@@ -56,7 +56,8 @@ const Login = () => {
                                 value={email}
                                 onChange={(e) => validateEmail(e.target.value)}
                                 placeholder="name@example.com"
-                                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className={`w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 ${isValidEmail ? 'border-gray-300 focus:ring-blue-500' : 'border-red-500 focus:ring-red-500'
+                                    }`}
                             />
                         </div>
                         <div className="mb-4">
@@ -83,7 +84,7 @@ const Login = () => {
                             onClick={handleLogin}
                             disabled={loading || !email || !password || !isValidEmail}
                         >
-                            {loading? "Loading..." : "Sign in"}
+                            {loading ? "Loading..." : "Sign in"}
                         </button>
                     </div>
                     <p className="text-gray-300 font-inter font-normal text-center text-[14px] leading-[150%] tracking-[0%]">© 2024 tentwenty</p>
