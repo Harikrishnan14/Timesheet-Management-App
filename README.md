@@ -1,40 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Getting Started
 
-## Getting Started
+This is a small Timesheet Management App built using Next.js and TypeScript.
+Used packages such as Tailwind CSS for styling and NextAuth.js for authentication.
 
-First, run the development server:
+🕒 Time spent: Approximately 8 hours to build this app from scratch.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Initial Setup:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **Install Node.js :** Node.js is an open-source, cross-platform JavaScript runtime environment. You can download Node.js from the official website at https://nodejs.org/en/download/ or use your system's package manager.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+   Check Node.js and npm Installation:
+   Open a terminal ( or command prompt on Windows ) and run the following command to ensure Node.js is installed correctly:
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+   ![Image](https://github.com/user-attachments/assets/5b6a1362-a3a7-4997-a2ef-9d83be414541)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+   [ NOTE : npm comes with Node.js by default, you don't have to install it separately ]
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Clone or Download the Code :**
 
-## Learn More
+   Clone the repository using the following command:
+   ### `git clone https://github.com/Harikrishnan14/Timesheet-Management-App.git`
 
-To learn more about Next.js, take a look at the following resources:
+   Then, navigate into the project folder:
+   ### `cd Timesheet-Management-App`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+   Or alternatively, download the ZIP file from GitHub and extract it.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. **Install Dependencies :**
+   1. Open the terminal ( or command prompt on Windows ) ( or if you are using VS Code, you can use its terminal ) from the root folder, run the following command to install all the dependencies needed to run the application [ Don't close this terminal we will be using this later] :
+      ### `npm i`
+      
+# Starting the Application:
 
-## Deploy on Vercel
+1. On the terminal which you used to install the dependencies for the application, run the following command to start the application :
+   ### `npm run dev`
+   
+2. After this, Go to 'http://localhost:3000'
+3. If you want to see the hosted website, Go to 'https://timesheet-management-app-hari14.vercel.app'
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Packages Used:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+1.  **Next.js :** Framework for server-rendered React applications.Supports both static and server-side rendering out of the box.
+2.  **TypeScript  :** Strongly typed superset of JavaScript. Helps catch errors at compile time and improves developer experience.
+3. **Tailwind CSS :** Used for responsive design. It offers utility classes to quickly style elements without writing custom CSS from scratch. It's flexible and easy to customize.
+4.  **NextAuth.js :** A complete authentication solution for Next.js applications. It supports multiple authentication providers (like Google, GitHub, Credentials, etc.), session handling, and secure login flows with minimal configuration. Ideal for handling user login, logout, and session management.
