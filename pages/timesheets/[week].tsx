@@ -126,7 +126,7 @@ const Week = () => {
             <div className="mb-6">
                 <Card>
                     <div className='flex items-center justify-between mb-10'>
-                        <h3 className="font-inter font-bold text-2xl leading-[24px] tracking-normal">This week's timesheet</h3>
+                        <h3 className="font-inter font-bold text-2xl leading-[24px] tracking-normal">This week&apos;s timesheet</h3>
                         <Progressbar totalHours={totalHours} percentage={percentage} />
                     </div>
 
