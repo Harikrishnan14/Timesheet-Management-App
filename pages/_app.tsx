@@ -9,7 +9,7 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={inter.className}>
+    <main className={`${inter.className} max-w-[1440px] mx-auto`}>
       <Component {...pageProps} />
     </main>
   );
