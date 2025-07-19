@@ -32,7 +32,6 @@ const Week = () => {
         if (week) {
             fetchData();
         }
-        //@ts-ignore
     }, [week])
 
     const handleMenuToggle = (day: string, idx: number) => {
