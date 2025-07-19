@@ -18,5 +18,5 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         return res.status(404).json({ message: 'Week not found' });
     }
 
-    return res.status(200).json(weekData);
+    return res.status(200).json([weekData]);
 }

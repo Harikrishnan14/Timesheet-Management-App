@@ -1,46 +1,34 @@
 import Card from '@/components/Card'
 import MainLayout from '@/components/MainLayout'
+import { TimesheetWeek } from '@/interfaces/next-auth'
+import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 
 const Week = () => {
+    const router = useRouter()
+    const [loading, setLoading] = useState(false)
+    const [weeklyData, setWeeklyData] = useState<TimesheetWeek[]>([])
 
-    const weeklyData = [
-        {
-            day: 'Jan 21',
-            tasks: [
-                { title: 'Homepage Development', hours: '4 hrs', project: 'Project A' },
-                { title: 'UI Review', hours: '2 hrs', project: 'Project A' },
-                { title: 'Bug Fixes', hours: '1 hr', project: 'Project A' },
-            ],
-        },
-        {
-            day: 'Jan 22',
-            tasks: [
-                { title: 'Design Sync', hours: '3 hrs', project: 'Project B' },
-                { title: 'Code Review', hours: '2 hrs', project: 'Project B' },
-            ],
-        },
-        {
-            day: 'Jan 23',
-            tasks: [
-                { title: 'Homepage Development', hours: '4 hrs', project: 'Project A' },
-                { title: 'UI Review', hours: '2 hrs', project: 'Project A' },
-                { title: 'Bug Fixes', hours: '1 hr', project: 'Project A' },
-            ],
-        },
-        {
-            day: 'Jan 24',
-            tasks: [
-                { title: 'Design Sync', hours: '3 hrs', project: 'Project B' },
-                { title: 'Code Review', hours: '2 hrs', project: 'Project B' },
-            ],
-        },
-        {
-            day: 'Jan 25',
-            tasks: [
-            ],
-        },
-    ];
+    const { week } = router.query
+
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`/api/timesheets/${week}`);
+            const json = await response.json();
+            setWeeklyData(json);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        if (week) {
+            fetchData();
+        }
+    }, [week])
 
     const [openMenu, setOpenMenu] = useState<{ day: string; idx: number } | null>(null);
     const [menuPos, setMenuPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
@@ -118,46 +106,54 @@ const Week = () => {
                         <Progressbar />
                     </div>
 
-                    <p className='font-normal text-sm text-gray-500 leading-[150%] font-inter mb-6'>21 - 26 January, 2024</p>
+                    <p className='font-normal text-sm text-gray-500 leading-[150%] font-inter mb-6'>{weeklyData[0]?.date}</p>
 
-                    {weeklyData.map(({ day, tasks }) => (
-                        <div key={day} className="mb-6 flex gap-10">
-                            <p className="font-inter font-semibold text-[18px] text-gray-900 leading-[150%] tracking-[0%] text-nowrap">{day}</p>
+                    {!loading ? (
+                        <tr
+                            className="bg-white text-[#111827] text-[14px] font-normal leading-[21px] border border-[#E5E7EB] rounded-[8px] shadow-sm"
+                        >
+                            <td colSpan={4} className="p-5 text-center font-normal text-[14px] leading-[150%] text-gray-900">Loading...</td>
+                        </tr>
+                    ) : (
+                        weeklyData[0]?.weeklyData.map(({ day, tasks }) => (
+                            <div key={day} className="mb-6 flex gap-10">
+                                <p className="font-inter font-semibold text-[18px] text-gray-900 leading-[150%] tracking-[0%] text-nowrap">{day}</p>
 
-                            <div className='flex-1'>
-                                {tasks.map((task, idx) => {
-                                    const key = `${day}-${idx}`;
-                                    return (
-                                        <div
-                                            key={idx}
-                                            className="flex items-center justify-between border border-gray-200 rounded-lg p-3 mb-2"
-                                        >
-                                            <span className="font-inter font-medium text-[16px] leading-[150%] tracking-[0%] text-gray-900">{task.title}</span>
-                                            <div className="flex items-center gap-4">
-                                                <span className="font-inter font-normal text-[14px] leading-[125%] tracking-[0%] text-gray-400">{task.hours}</span>
-                                                <span className="text-sm font-medium text-blue-800 px-3 py-1 rounded-md bg-blue-100">
-                                                    {task.project}
-                                                </span>
-                                                <button
-                                                    ref={(el) => {
-                                                        buttonRefs.current[key] = el;
-                                                    }}
-                                                    className="text-gray-500 hover:text-gray-700 hover:cursor-pointer"
-                                                    onClick={() => handleMenuToggle(day, idx)}
-                                                >
-                                                    ⋯
-                                                </button>
+                                <div className='flex-1 max-w-[1058px] ml-auto'>
+                                    {tasks.map((task, idx) => {
+                                        const key = `${day}-${idx}`;
+                                        return (
+                                            <div
+                                                key={idx}
+                                                className="flex items-center justify-between border border-gray-200 rounded-lg p-3 mb-2"
+                                            >
+                                                <span className="font-inter font-medium text-[16px] leading-[150%] tracking-[0%] text-gray-900">{task.title}</span>
+                                                <div className="flex items-center gap-4">
+                                                    <span className="font-inter font-normal text-[14px] leading-[125%] tracking-[0%] text-gray-400">{task.hours}</span>
+                                                    <span className="text-sm font-medium text-blue-800 px-3 py-1 rounded-md bg-blue-100">
+                                                        {task.project}
+                                                    </span>
+                                                    <button
+                                                        ref={(el) => {
+                                                            buttonRefs.current[key] = el;
+                                                        }}
+                                                        className="text-gray-500 hover:text-gray-700 hover:cursor-pointer"
+                                                        onClick={() => handleMenuToggle(day, idx)}
+                                                    >
+                                                        ⋯
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                })}
-                                <button className="w-full font-medium text-[16px] text-gray-500 leading-[150%] align-middle font-inter py-3 border border-dashed border-gray-300 hover:text-blue-700 rounded-lg hover:bg-blue-100 hover:border-blue-700 hover:cursor-pointer transition">
-                                    + Add new task
-                                </button>
-                                {openMenu && <Dropdown />}
+                                        )
+                                    })}
+                                    <button className="w-full font-medium text-[16px] text-gray-500 leading-[150%] align-middle font-inter py-3 border border-dashed border-gray-300 hover:text-blue-700 rounded-lg hover:bg-blue-100 hover:border-blue-700 hover:cursor-pointer transition">
+                                        + Add new task
+                                    </button>
+                                    {openMenu && <Dropdown />}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))
+                    )}
                 </Card>
 
             </div>
