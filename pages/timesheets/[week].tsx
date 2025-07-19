@@ -88,7 +88,7 @@ const Week = () => {
                     20 / 40 hrs
                 </div>
 
-                <div className="w-32 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                <div className="w-[188px] h-1.5 bg-gray-200 rounded-full overflow-hidden">
                     <div className="h-full bg-orange-500 rounded-full" style={{ width: `20%` }} />
                 </div>
             </div>
