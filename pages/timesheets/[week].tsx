@@ -18,7 +18,8 @@ const Week = () => {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`/api/timesheets/${week}`);
+            const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+            const response = await fetch(`${baseUrl}/api/timesheets/${week}`);
             const json = await response.json();
             setWeeklyData(json);
         } catch (error) {

@@ -2,6 +2,7 @@ import Card from "@/components/Card";
 import MainLayout from "@/components/MainLayout";
 import { TimesheetWeek } from "@/interfaces/next-auth";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 
 interface Props {
   timesheetData: TimesheetWeek[];
@@ -86,8 +87,9 @@ export default function Home({ timesheetData }: Props) {
   );
 }
 
-export async function getServerSideProps() {
-  const response = await fetch('http://localhost:3000/api/timesheets/getallweeks');
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const baseUrl = process.env.NEXTAUTH_URL || `http://${context.req.headers.host}`;
+  const response = await fetch(`${baseUrl}/api/timesheets/getallweeks`);
   const json = await response.json();
   return {
     props: {
