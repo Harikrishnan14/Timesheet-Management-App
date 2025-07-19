@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
 import { SessionProvider, useSession } from "next-auth/react";
 import { useEffect } from "react";
+import Head from "next/head";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,6 +37,11 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
   return (
     <SessionProvider session={session}>
       <AuthGuard>
+        <Head>
+          <title>ticktock - Time Management App</title>
+          <meta name="description" content="Your default page description" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </Head>
         <main className={`${inter.className} max-w-[1440px] mx-auto`}>
           {!hideNavbarRoutes.includes(router.pathname) && <Navbar />}
           <Component {...pageProps} />
