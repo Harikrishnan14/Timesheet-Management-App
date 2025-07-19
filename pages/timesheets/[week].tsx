@@ -32,6 +32,7 @@ const Week = () => {
         if (week) {
             fetchData();
         }
+        // eslint-disable-next-line
     }, [week])
 
     const handleMenuToggle = (day: string, idx: number) => {
