@@ -1,17 +1,30 @@
 import Card from "@/components/Card";
 import MainLayout from "@/components/MainLayout";
+import { TimesheetWeek } from "@/interfaces/next-auth";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [timesheetData, setTimeSheetData] = useState<TimesheetWeek[] | []>([])
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
-  const timesheetData = [
-    { week: 1, date: '1 – 5 January, 2024', status: 'COMPLETED' },
-    { week: 2, date: '8 – 12 January, 2024', status: 'COMPLETED' },
-    { week: 3, date: '15 – 19 January, 2024', status: 'INCOMPLETE' },
-    { week: 4, date: '22 – 26 January, 2024', status: 'COMPLETED' },
-    { week: 5, date: '28 January – 1 February, 2024', status: 'MISSING' },
-  ];
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('/api/timesheets/getallweeks');
+      const json = await response.json();
+      setTimeSheetData(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   const getStatusStyles = (status: string) => {
     switch (status) {
@@ -45,34 +58,42 @@ export default function Home() {
               </thead>
 
               <tbody>
-                {timesheetData.map((row, index) => (
+                {loading ? (
                   <tr
-                    key={index}
                     className="bg-white text-[#111827] text-[14px] font-normal leading-[21px] border border-[#E5E7EB] rounded-[8px] shadow-sm"
                   >
-                    <td className="p-5 bg-gray-50 w-[107px] font-normal text-[14px] leading-[150%] text-gray-900">{row.week}</td>
-                    <td className="p-5 font-inter font-normal text-[14px] leading-[150%] text-gray-500">{row.date}</td>
-                    <td className="p-5">
-                      <span
-                        className={`px-2 py-1 rounded-md text-[12px] font-medium ${getStatusStyles(row.status)}`}
-                      >
-                        {row.status}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3">
-                      <button
-                        className="font-normal text-blue-600 text-base leading-[125%] font-inter hover:cursor-pointer hover:text-blue-400"
-                        onClick={() => router.push('/timesheets/week')}
-                      >
-                        {row.status === "COMPLETED"
-                          ? "View"
-                          : row.status === "INCOMPLETE"
-                            ? "Update"
-                            : "Create"}
-                      </button>
-                    </td>
+                    <td colSpan={4} className="p-5 text-center font-normal text-[14px] leading-[150%] text-gray-900">Loading...</td>
                   </tr>
-                ))}
+                ) : (
+                  timesheetData.map((row, index) => (
+                    <tr
+                      key={index.toString()}
+                      className="bg-white text-[#111827] text-[14px] font-normal leading-[21px] border border-[#E5E7EB] rounded-[8px] shadow-sm"
+                    >
+                      <td className="p-5 bg-gray-50 w-[107px] font-normal text-[14px] leading-[150%] text-gray-900">{row.week}</td>
+                      <td className="p-5 font-inter font-normal text-[14px] leading-[150%] text-gray-500">{row.date}</td>
+                      <td className="p-5">
+                        <span
+                          className={`px-2 py-1 rounded-md text-[12px] font-medium ${getStatusStyles(row.status)}`}
+                        >
+                          {row.status}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <button
+                          className="font-normal text-blue-600 text-base leading-[125%] font-inter hover:cursor-pointer hover:text-blue-400"
+                          onClick={() => router.push(`/timesheets/${row.week}`)}
+                        >
+                          {row.status === "COMPLETED"
+                            ? "View"
+                            : row.status === "INCOMPLETE"
+                              ? "Update"
+                              : "Create"}
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
