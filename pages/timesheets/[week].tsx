@@ -13,6 +13,10 @@ const Week = () => {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [weeklyData, setWeeklyData] = useState<TimesheetWeek[]>([])
+    const [openMenu, setOpenMenu] = useState<{ day: string; idx: number } | null>(null);
+    const [menuPos, setMenuPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
+
+    const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
     const { week } = router.query
 
@@ -34,11 +38,6 @@ const Week = () => {
             fetchData();
         }
     }, [week])
-
-    const [openMenu, setOpenMenu] = useState<{ day: string; idx: number } | null>(null);
-    const [menuPos, setMenuPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
-
-    const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
     const handleMenuToggle = (day: string, idx: number) => {
         const key = `${day}-${idx}`;
