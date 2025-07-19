@@ -37,6 +37,7 @@ Used packages such as Tailwind CSS for styling and NextAuth.js for authenticatio
    
 2. After this, Go to 'http://localhost:3000'
 3. If you want to see the hosted website, Go to 'https://timesheet-management-app-hari14.vercel.app'
+4. Use Email: `test@example.com` and Password: `123456` to login
 
 # Packages Used:
 
