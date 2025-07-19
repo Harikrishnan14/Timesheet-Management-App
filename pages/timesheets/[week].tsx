@@ -151,7 +151,7 @@ const Week = () => {
                                         </div>
                                     )
                                 })}
-                                <button className="w-full text-sm text-blue-600 font-inter py-3 border border-dashed border-gray-300 rounded-lg hover:bg-blue-100 hover:border-blue-700 hover:cursor-pointer transition">
+                                <button className="w-full font-medium text-[16px] text-gray-500 leading-[150%] align-middle font-inter py-3 border border-dashed border-gray-300 hover:text-blue-700 rounded-lg hover:bg-blue-100 hover:border-blue-700 hover:cursor-pointer transition">
                                     + Add new task
                                 </button>
                                 {openMenu && <Dropdown />}
