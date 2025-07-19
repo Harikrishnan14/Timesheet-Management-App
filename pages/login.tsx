@@ -28,7 +28,7 @@ const Login = () => {
 
             if (res?.ok) {
                 alert("Successfully logged in!");
-                router.push("/");
+                router.replace("/");
             } else {
                 alert("Invalid credentials");
             }
