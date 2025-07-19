@@ -4,6 +4,11 @@ import { TimesheetWeek } from '@/interfaces/next-auth'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 
+interface ProgressbarProps {
+    totalHours: number;
+    percentage: number;
+}
+
 const Week = () => {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
@@ -67,17 +72,41 @@ const Week = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const Progressbar = () => (
+
+    function calculateTotalTimeAndPercentage(weeklyData: TimesheetWeek[]): { totalHours: number; percentage: number } {
+        let totalHours = 0;
+
+        weeklyData.forEach(week => {
+            week.weeklyData.forEach(day => {
+                day.tasks.forEach(task => {
+                    const hoursNumber = parseFloat(task.hours);
+                    if (!isNaN(hoursNumber)) {
+                        totalHours += hoursNumber;
+                    }
+                });
+            });
+        });
+
+        const percentage = (totalHours / 40) * 100;
+        return {
+            totalHours,
+            percentage: Math.round(percentage),
+        };
+    }
+
+    const { totalHours, percentage } = calculateTotalTimeAndPercentage(weeklyData);
+
+    const Progressbar: React.FC<ProgressbarProps> = ({ totalHours, percentage }) => (
         <div className="flex flex-col items-end">
-            <span className="font-medium text-[12px] leading-[150%] text-right text-gray-500">100%</span>
+            <span className="font-medium text-[12px] leading-[150%] text-right text-gray-500">{percentage}%</span>
 
             <div className="relative group mt-1 cursor-pointer">
                 <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex items-center justify-center px-2 py-1 text-white text-xs bg-gray-800 rounded-md shadow-md whitespace-nowrap z-10">
-                    20 / 40 hrs
+                    {`${totalHours} / 40 hrs`}
                 </div>
 
                 <div className="w-[188px] h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-orange-500 rounded-full" style={{ width: `20%` }} />
+                    <div className="h-full bg-orange-500 rounded-full" style={{ width: `${percentage}%` }} />
                 </div>
             </div>
         </div>
@@ -103,17 +132,17 @@ const Week = () => {
                 <Card>
                     <div className='flex items-center justify-between mb-10'>
                         <h3 className="font-inter font-bold text-2xl leading-[24px] tracking-normal">This week's timesheet</h3>
-                        <Progressbar />
+                        <Progressbar totalHours={totalHours} percentage={percentage} />
                     </div>
 
                     <p className='font-normal text-sm text-gray-500 leading-[150%] font-inter mb-6'>{weeklyData[0]?.date}</p>
 
-                    {!loading ? (
-                        <tr
-                            className="bg-white text-[#111827] text-[14px] font-normal leading-[21px] border border-[#E5E7EB] rounded-[8px] shadow-sm"
+                    {loading ? (
+                        <div
+                            className="w-full font-medium text-[16px] text-center text-gray-500 leading-[150%] align-middle font-inter py-3 border border-gray-200 rounded-lg"
                         >
-                            <td colSpan={4} className="p-5 text-center font-normal text-[14px] leading-[150%] text-gray-900">Loading...</td>
-                        </tr>
+                            Loading...
+                        </div>
                     ) : (
                         weeklyData[0]?.weeklyData.map(({ day, tasks }) => (
                             <div key={day} className="mb-6 flex gap-10">
