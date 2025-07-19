@@ -4,7 +4,7 @@ const Login = () => {
     return (
         <div className='flex h-screen'>
             <div className='flex-1 bg-white h-full flex items-center justify-center'>
-                <div className='w-full max-w-[576px] px-6'>
+                <div className='w-full max-w-[576px]'>
                     <div className='py-32'>
                         <h3 className='font-bold text-[20px] leading-[125%] tracking-[0%] mb-6'>Welcome back</h3>
                         <div className="mb-4">
@@ -39,7 +39,7 @@ const Login = () => {
                             Sign in
                         </button>
                     </div>
-                    <p className="text-gray-300 font-inter font-normal text-center text-[14px] leading-[150%] tracking-[0%] my-10">© 2024 tentwenty</p>
+                    <p className="text-gray-300 font-inter font-normal text-center text-[14px] leading-[150%] tracking-[0%]">© 2024 tentwenty</p>
                 </div>
             </div>
 
