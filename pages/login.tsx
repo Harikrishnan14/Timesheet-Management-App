@@ -92,7 +92,7 @@ const Login = () => {
 
             <div className='flex-1 bg-blue-600 h-full flex flex-col items-center justify-center'>
                 <div className='max-w-[576px] text-wrap'>
-                    <h1 className='text-white font-semibold text-[40px] leading-[150%] tracking-[0%]'>ticktock</h1>
+                    <h1 className='text-white font-semibold text-[40px] leading-[150%] tracking-[0%] mb-4'>ticktock</h1>
                     <p className='text-gray-200 font-normal text-[16px] leading-[150%] tracking-[0%]'>
                         Introducing ticktock, our cutting-edge timesheet web application designed to revolutionize how you manage employee work hours. With ticktock, you can effortlessly track and monitor employee attendance and productivity from anywhere, anytime, using any internet-connected device.
                     </p>
