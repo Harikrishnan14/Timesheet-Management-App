@@ -1,6 +1,44 @@
-import React from 'react'
+import React from 'react';
+import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Login = () => {
+    const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [isValidEmail, setIsValidEmail] = useState(true);
+
+    const validateEmail = (value: string) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setIsValidEmail(emailRegex.test(value));
+        setEmail(value);
+    }
+
+    const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setLoading(true)
+        try {
+            const res = await signIn("credentials", {
+                redirect: false,
+                email,
+                password,
+            });
+
+            if (res?.ok) {
+                alert("Successfully logged in!");
+                router.push("/");
+            } else {
+                alert("Invalid credentials");
+            }
+        } catch (error) {
+            console.error("Error during sign in:", error);
+        } finally {
+            setLoading(false)
+        }
+    };
+
     return (
         <div className='flex h-screen'>
             <div className='flex-1 bg-white h-full flex items-center justify-center'>
@@ -15,6 +53,8 @@ const Login = () => {
                                 type="text"
                                 id="email"
                                 name="email"
+                                value={email}
+                                onChange={(e) => validateEmail(e.target.value)}
                                 placeholder="name@example.com"
                                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
@@ -27,6 +67,8 @@ const Login = () => {
                                 type="password"
                                 id="password"
                                 name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 placeholder='••••••••••'
                                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
@@ -35,7 +77,12 @@ const Login = () => {
                             <input type="checkbox" id="remember" className="w-[16px] h-[16px] rounded-[4px] border-[0.5px] border-gray-300 bg-gray-50 opacity-100 mr-2 hover:cursor-pointer" />
                             <label htmlFor="remember" className="text-sm text-gray-700">Remember me</label>
                         </div>
-                        <button className="w-full bg-blue-700 text-white py-2 rounded-lg text-sm hover:bg-blue-500 hover:cursor-pointer transition">
+                        <button
+                            type='button'
+                            className="w-full bg-blue-700 text-white py-2 rounded-lg text-sm hover:bg-blue-500 hover:cursor-pointer transition disabled:bg-blue-400 disabled:cursor-not-allowed"
+                            onClick={handleLogin}
+                            disabled={loading || !email || !password || !isValidEmail}
+                        >
                             Sign in
                         </button>
                     </div>
